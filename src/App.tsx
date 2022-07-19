@@ -1,24 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import Card from "./components/Card";
+import EventExample from "./components/EventExample";
+import TodoPage from "./components/TodoPage";
+import UserItemPage from "./components/UserItemPage";
+import UserPage from "./components/UserPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div>
+      <BrowserRouter>
+        <div>
+          <Link to={"/todo"}>Список дел</Link>
+          <Link to={"/users"}>Пользователи</Link>
+        </div>
+        <Routes>
+          <Route path={"/todo"} element={<TodoPage />} />
+          <Route path={"/users"} element={<UserPage />} />
+          <Route path={"/users/:id"} element={<UserItemPage />} />
+        </Routes>
+      </BrowserRouter>
+      <EventExample />
+      <Card
+        width={"200px"}
+        height={"200px"}
+        background={"teal"}
+        myClick={() => console.log("test")}
+      >
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            console.log("Button");
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          ЦИСК
+        </button>
+      </Card>
     </div>
   );
 }
